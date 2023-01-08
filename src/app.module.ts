@@ -12,7 +12,7 @@ import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import * as AdminJSMongoose from '@adminjs/mongoose';
 import { User } from './users/entities/user.entity';
 import { Coupon } from './coupons/entities/coupon.entity';
-import mongoose, { Model } from 'mongoose';
+import mongoose, { Connection, Model } from 'mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import * as process from 'process';
@@ -48,7 +48,10 @@ const authenticate = async (email: string, password: string) => {
     AdminModule.createAdminAsync({
       imports: [UsersModule, CouponsModule],
       inject: [getModelToken(User.name), getModelToken(Coupon.name)],
-      useFactory: (userModel: Model<User>, couponModel: Model<Coupon>) => ({
+      useFactory: async (
+        userModel: Model<User>,
+        couponModel: Model<Coupon>,
+      ) => ({
         adminJsOptions: {
           rootPath: '/admin',
           resources: [
@@ -91,7 +94,7 @@ const authenticate = async (email: string, password: string) => {
           secret: 'secret',
           store: new SessionManage({
             storage: 'mongodb',
-            instance: mongoose,
+            instance: await mongoose.connect(process.env.MONGODB),
           }),
         },
       }),
