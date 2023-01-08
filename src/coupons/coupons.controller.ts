@@ -1,9 +1,4 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Param, Delete } from '@nestjs/common';
 import { CouponsService } from './coupons.service';
 
 @Controller('coupon')
