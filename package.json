@@ -38,6 +38,7 @@
     "class-validator": "^0.13.2",
     "express-formidable": "^1.2.0",
     "express-session": "^1.17.3",
+    "express-sessions": "^1.0.6",
     "joi": "^17.7.0",
     "mongoose": "^6.8.2",
     "reflect-metadata": "^0.1.13",

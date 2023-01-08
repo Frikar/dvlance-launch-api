@@ -12,12 +12,13 @@ import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import * as AdminJSMongoose from '@adminjs/mongoose';
 import { User } from './users/entities/user.entity';
 import { Coupon } from './coupons/entities/coupon.entity';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import * as process from 'process';
 import { ScheduleModule } from '@nestjs/schedule';
 import importExportFeature from '@adminjs/import-export';
+import * as SessionManage from 'express-sessions';
 
 AdminJS.registerAdapter({
   Resource: AdminJSMongoose.Resource,
@@ -88,6 +89,10 @@ const authenticate = async (email: string, password: string) => {
           resave: true,
           saveUninitialized: true,
           secret: 'secret',
+          store: new SessionManage({
+            storage: 'mongodb',
+            instance: mongoose,
+          }),
         },
       }),
     }),
