@@ -34,13 +34,16 @@ export class UsersService {
         _id: id,
         ...createUserDto,
       });
-      user.coupon = await this.couponService.create(user._id);
       //user.save error handling
+      await user.save();
+      //create coupon
+      user.coupon = await this.couponService.create(user._id);
+      //save user with coupon
       await user.save();
       return user;
     } catch (error) {
       if (error.code === 11000) {
-        this.logger.warn('Email ya existe');
+        this.logger.warn(`Email ${createUserDto.email} ya existe`);
         throw new BadRequestException('Usuario ya existe');
       }
       this.logger.error(error);
