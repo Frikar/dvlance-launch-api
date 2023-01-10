@@ -40,7 +40,7 @@ export class UsersService {
       user.coupon = await this.couponService.create(user._id);
       //save user with coupon
       await user.save();
-      return user;
+      return user.populate('coupon');
     } catch (error) {
       if (error.code === 11000) {
         this.logger.warn(`Email ${createUserDto.email} ya existe`);
