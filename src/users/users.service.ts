@@ -46,14 +46,10 @@ export class UsersService {
       //populate coupon
       await user.populate('coupon');
       //send email
-      this.logger.log({
-        message: 'Usuario creado',
-        user: user,
-      });
       this.emailService.send({
         email: user.email,
-        code: user.coupon.code,
-        expireDate: user.coupon.expiresAt,
+        code: user.coupon[0].code,
+        expireDate: user.coupon[0].expiresAt,
       });
       return user;
     } catch (error) {
