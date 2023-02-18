@@ -49,6 +49,7 @@ export class UsersService {
         code: user.coupon.code,
         expireDate: user.coupon.expiresAt,
       };
+      this.logger.log(client);
       this.emailService.send(client);
       return user.populate('coupon');
     } catch (error) {
