@@ -40,19 +40,21 @@ export class UsersService {
       //user.save error handling
       await user.save();
       //create coupon
-      user.coupon = await this.couponService.create(user._id);
+      user.coupon = await this.couponService.create(user._id).then();
       //save user with coupon
       await user.save();
       //populate coupon
       await user.populate('coupon');
       //send email
-      const client: Email = {
+      this.logger.log({
+        message: 'Usuario creado',
+        user: user,
+      });
+      this.emailService.send({
         email: user.email,
         code: user.coupon.code,
         expireDate: user.coupon.expiresAt,
-      };
-      this.logger.log(client);
-      this.emailService.send(client);
+      });
       return user;
     } catch (error) {
       if (error.code === 11000) {
