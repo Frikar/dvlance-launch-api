@@ -7,7 +7,7 @@ async function bootstrap() {
   const logger = new Logger('Bootstrap', { timestamp: true });
   app.setGlobalPrefix('api');
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: 'https://dvlance.com',
     credentials: true,
   });
 
