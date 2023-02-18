@@ -49,7 +49,7 @@ export class UsersService {
         code: user.coupon.code,
         expireDate: user.coupon.expiresAt,
       };
-      await this.emailService.send(client);
+      this.emailService.send(client);
       return user.populate('coupon');
     } catch (error) {
       if (error.code === 11000) {

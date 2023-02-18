@@ -54,6 +54,9 @@ export class EmailService {
       })
       .then(() => {
         this.logger.log(`Email sent to ${client.email}`);
+      })
+      .catch((error) => {
+        this.logger.error(error);
       });
   }
 }
