@@ -6,4 +6,5 @@ export const JoiValidationSchema = Joi.object({
   DEFAULT_LIMIT: Joi.number().default(10),
   ADMIN_EMAIL: Joi.string().email().required(),
   ADMIN_PASSWORD: Joi.string().required(),
+  SENDINBLUE_API_KEY: Joi.string().required(),
 });

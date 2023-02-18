@@ -5,4 +5,5 @@ export const EnvConfiguration = () => ({
   defaultLimit: +process.env.DEFAULT_LIMIT || 10,
   adminEmail: process.env.ADMIN_EMAIL,
   adminPassword: process.env.ADMIN_PASSWORD,
+  sendinblueApiKey: process.env.SENDINBLUE_API_KEY,
 });

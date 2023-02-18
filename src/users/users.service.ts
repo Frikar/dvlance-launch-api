@@ -11,6 +11,8 @@ import mongoose, { isValidObjectId, Model } from 'mongoose';
 import { User } from './entities/user.entity';
 import { Coupon } from '../coupons/entities/coupon.entity';
 import { CouponsService } from '../coupons/coupons.service';
+import { EmailService } from '../email/email.service';
+import { Email } from '../email/entities/email.entity';
 
 @Injectable()
 export class UsersService {
@@ -22,6 +24,7 @@ export class UsersService {
     private readonly userModel: Model<User>,
     //inject coupon service
     private readonly couponService: CouponsService,
+    private readonly emailService: EmailService,
     @InjectModel(Coupon.name)
     private readonly couponModel: Model<Coupon>,
   ) {}
@@ -40,6 +43,13 @@ export class UsersService {
       user.coupon = await this.couponService.create(user._id);
       //save user with coupon
       await user.save();
+      //send email
+      const client: Email = {
+        email: user.email,
+        code: user.coupon.code,
+        expireDate: user.coupon.expiresAt,
+      };
+      await this.emailService.send(client);
       return user.populate('coupon');
     } catch (error) {
       if (error.code === 11000) {

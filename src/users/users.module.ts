@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './entities/user.entity';
 import { ConfigModule } from '@nestjs/config';
 import { CouponsModule } from '../coupons/coupons.module';
+import { EmailModule } from '../email/email.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { CouponsModule } from '../coupons/coupons.module';
       },
     ]),
     CouponsModule,
+    EmailModule,
   ],
   controllers: [UsersController],
   providers: [UsersService],

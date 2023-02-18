@@ -17,6 +17,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import * as process from 'process';
 import { ScheduleModule } from '@nestjs/schedule';
+import { EmailModule } from './email/email.module';
 import importExportFeature from '@adminjs/import-export';
 import * as SessionManage from 'express-sessions';
 
@@ -101,6 +102,7 @@ const authenticate = async (email: string, password: string) => {
     }),
     UsersModule,
     CouponsModule,
+    EmailModule,
   ],
   controllers: [AppController],
   providers: [AppService],
