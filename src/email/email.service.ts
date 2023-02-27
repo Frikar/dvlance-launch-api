@@ -38,7 +38,7 @@ export class EmailService {
       );
   }
 
-  send(client: Email) {
+  async send(client: Email) {
     apiInstance.setApiKey(
       TransactionalEmailsApiApiKeys.apiKey,
       this.configService.get('SENDINBLUE_API_KEY'),
